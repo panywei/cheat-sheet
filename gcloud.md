@@ -26,11 +26,15 @@ kubectl label pods secure-monolith 'secure=enabled'
 kubectl port-forward $(kubectl get pod -l app=servicegraph -o jsonpath='{.items[0].metadata.name}') 8088:8088 &
 kubectl describe services monolith | grep Endpoints
 
+# Minikube
 minikube start \
 	--extra-config=controller-manager.ClusterSigningCertFile="/var/lib/localkube/certs/ca.crt" \
 	--extra-config=controller-manager.ClusterSigningKeyFile="/var/lib/localkube/certs/ca.key" \
 	--extra-config=apiserver.Admission.PluginNames=NamespaceLifecycle,LimitRanger,ServiceAccount,PersistentVolumeLabel,DefaultStorageClass,DefaultTolerationSeconds,MutatingAdmissionWebhook,ValidatingAdmissionWebhook,ResourceQuota \
-	--kubernetes-version=v1.9.0
+	--kubernetes-version=v1.9.0  
+source <(minikube completion bash) # shell completion	
+minikube config get/set/unset/view    
+
 
 ### Istio
 istioctl create|replace -f samples/bookinfo/kube/route-rule-all-v1.yaml
