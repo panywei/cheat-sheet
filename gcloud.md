@@ -1,3 +1,7 @@
+# Install
+gcloud components install|remove COMPONENT_ID
+gcloud components update
+
 ### Account
 gcloud auth list : Show active Credentialed Accounts.  
 gcloud config set account `ACCOUNT` : Set the active account
